@@ -33,3 +33,24 @@ var c = new Child();
 console.log(c.smile);*/
 
 
+//util.inspect方法
+var obj = {name:'zfpx',value:'nodejs'};
+//1.param1 需要解析的参数
+//2.opts {showHidden, depth, colors}
+Object.defineProperty(obj,'age',{
+    enumerable:false,//可枚举
+    value:100,
+    configurable:false,//如果为不可配置，不可以进行删除
+    writable:false//如果不可写值呢不能进行更改
+});
+obj.age =200;
+//delete obj.age;
+//对象的属性分为可枚举 不可枚举
+
+util.inspect(); //是console.dir的实现
+console.log(util.inspect(obj,{showHidden:true}));
+console.log(util);
+//判断type的方法
+console.log(util.isArray([1,2,3]));
+console.log(util.isDate(new Date()));
+console.log(util.isError([]));
