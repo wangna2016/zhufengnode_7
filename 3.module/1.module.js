@@ -7,3 +7,5 @@
 console.log(i);*/
 
 
+console.log(module.paths);
+
