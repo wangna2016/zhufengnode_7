@@ -23,7 +23,6 @@ console.log(path.normalize('b//////a/../1.txt/'));
 //3. 将多个/转换成单个
 //4. 保留最后一个/
 
-
 console.log(path.resolve('a/'));
 //c:\Users\10354_000\Desktop\node\6.path 以当前目录解析出一个绝对地址
 //2. 可以解析上一级
