@@ -29,8 +29,16 @@ EventEmitter.prototype.emit = function (eventName) {
      }
 }
 
-
-
+EventEmitter.prototype.removeListener = function(eventName,callback){
+    //移除绑定 filter过滤
+    if(this._events[eventName]){
+        //callback = function1
+        this._events[eventName] = this._events[eventName].filter(function(item){
+            //item代表每一个函数
+            return item != callback;//留下不一样的
+        });
+    }
+};
 
 var e = new EventEmitter();
 //on的参数有事件名称，还有事件(在一个队列里)
@@ -39,4 +47,5 @@ function veryHandsom(who,who1) {
 }
 
 e.on('我很帅',veryHandsom);
-e.emit('我很帅','xxx','ooo')
+e.removeListener('我很帅',veryHandsom);
+e.emit('我很帅','xxx','ooo');
