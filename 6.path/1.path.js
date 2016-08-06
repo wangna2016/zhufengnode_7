@@ -6,12 +6,12 @@ var build = 'c/../e';
 path.join(src,build);// 拼接一个路径出来
 console.log(path.join(src,build)); //..表示回到上一级目录
 
-var str = 'hello.js';
+var str = 'hello.public';
 var build = 'a.jpg';
 //取hello.js的文件名 a.jpg的扩展名
-console.log(path.basename(str,'.js')); //需要指定以什么为扩展名,会把不是扩展名的全部取出来
+console.log(path.basename(str,'.public')); //需要指定以什么为扩展名,会把不是扩展名的全部取出来
 console.log(path.extname('a.jpg')); //取出扩展名
-var newSrc = path.basename(str,'.js')+path.extname('a.jpg');
+var newSrc = path.basename(str,'.public')+path.extname('a.jpg');
 console.log(newSrc);
 
 console.log(path.sep);//路径分隔符 window是\ mac是/

@@ -7,5 +7,5 @@ console.log(global.a);
 //如何实现独立作用域 闭包 ，在文件外面增加一个闭包函数
 
 /*(function(__dirname,__filename){
-    b.js
+    b.public
 })();//每个模块互不干扰*/

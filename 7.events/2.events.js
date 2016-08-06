@@ -6,7 +6,7 @@ function EventEmitter() {
 //绑定事件
 EventEmitter.prototype.on = function (eventName,callback) {
     /*{
-        我很帅:['function1','function2','function3'],
+        我很帅:[function1,function2,one],
         我很丑:['function1','function2'],
     }*/
     //先判断当前对象中有没有，如果有push到数组内，没有创建一个数组
@@ -39,6 +39,16 @@ EventEmitter.prototype.removeListener = function(eventName,callback){
         });
     }
 };
+//绑定一次
+EventEmitter.prototype.once = function (eventName,callback) {
+    //先绑定，在执行的时候移除事件并让里面的事件执行
+    function one() {//真正触发时会触发one方法
+        this.removeListener(eventName,one);
+        callback.apply(this,arguments); //要让我们传进来的函数执行。并且移除掉绑定的函数
+    }
+    //先进行绑定
+    this.on(eventName,one); //当emit时候会让one执行，还会传入参数
+};
 
 var e = new EventEmitter();
 //on的参数有事件名称，还有事件(在一个队列里)
@@ -49,3 +59,7 @@ function veryHandsom(who,who1) {
 e.on('我很帅',veryHandsom);
 e.removeListener('我很帅',veryHandsom);
 e.emit('我很帅','xxx','ooo');
+e.emit('我很帅','xxx','ooo');
+e.emit('我很帅','xxx','ooo');
+
+//写一个once方法 先执行  在移除
