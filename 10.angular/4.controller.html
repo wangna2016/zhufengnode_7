@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div ng-controller="firstCtrl">
+    {{name}}
+</div>
+<div ng-controller="secondCtrl">
+    {{name}}
+</div>
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+   app.run(function ($rootScope) {
+       //在angular启动的时候设置全局属性,易于维护
+       $rootScope.name = 20;
+   });
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+        //$scope.name = 100;
+        //我们可以注入$rootScope,来进行增加全局作用域的属性
+    });
+   angular.module('appModule').controller('secondCtrl',function ($scope) {
+        //$scope.name = 50;
+       //我们可以注入$rootScope,来进行增加全局作用域的属性
+        //$rootScope.name = 100;
+   });
+    //压缩问题
+</script>
+</body>
+</html>

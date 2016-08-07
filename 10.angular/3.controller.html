@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="firstCtrl as vm">
+<input type="text" ng-model="vm.name">
+{{vm.name}}
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function () {
+        this.name = 100;
+    });
+</script>
+</body>
+</html>

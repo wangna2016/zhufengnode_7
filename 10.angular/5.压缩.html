@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div ng-controller="firstCtrl">
+    {{name}}
+    <div ng-controller="secondCtrl">
+        {{name}}
+    </div>
+</div>
+
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    //app.run(function(a){a.name=20});
+    //解决压缩该表$rootScope名字问题,需要应用数组的方式
+    // app.run(["$rootScope",function(a){a.name=20}]);
+    app.controller('firstCtrl',['$scope','$rootScope','$http',function ($scope,$http) {
+        //$scope.name = 20;
+    }]);
+   angular.module('appModule').controller('secondCtrl',function ($scope) {
+        $scope.name = 100;
+   });
+   app.run(["$rootScope",function(a){
+       a.name=20;
+       //会先执行run方法
+   }]);
+    //作用域查找，自己家没有向上查找，如果上面也没有就找不到了
+    //注意：操作dom在我们指令中link函数操作dom
+    //      格式化数据在filter中，直接修改会导致原数据发生改变
+</script>
+</body>
+</html>

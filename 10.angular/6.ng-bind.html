@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="angular-csp.css">
+</head>
+<body >
+<div ng-controller="firstCtrl">
+    {{name}}
+    <!--绑定一个数据 防止页面闪烁-->
+    <div ng-bind="name"></div>
+    <!--绑定多个数据-->
+    <!--ng开头的里面可以直接放变量 ng-src...(特殊) -->
+    <div ng-bind-template="{{name}} {{age}}"></div>
+    <!--将{{}}的内容直接输出出来-->
+    <div ng-non-bindable>{{name}}</div>
+    <!--绑定html元素 默认输出整个标签-->
+    <div ng-bind-html="html"></div>
+    <!--解决块级的闪烁问题 vue angular cloak-->
+    <!--我们要手动写入样式 先让其隐藏，当angular加载后会移出这个属性-->
+
+    <div ng-cloak>
+        {{name}}
+        <div>{{name}}
+            hello <div>{{age}}</div>
+        </div>
+    </div>
+
+
+</div>
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    app.controller('firstCtrl',['$scope','$rootScope','$http','$sce',function ($scope,$rootScope,$http,$sce) {
+        $scope.name  = 100;
+        $scope.age = 200;
+        //$scope.html = '<h1>123</h1>';
+        //编译成html 放到$scope上
+        $scope.html =  $sce.trustAsHtml('<h1>123</h1>');
+    }]);
+
+</script>
+</body>
+</html>
