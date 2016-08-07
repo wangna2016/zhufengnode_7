@@ -52,7 +52,7 @@
             update:{ //因为angular默认不支持修改方法，所有我们要手动增加
                 method:'PUT'
             }
-        })
+        });
     });
     app.controller('bookCtrl',function ($scope,book) {
         //查询所有书
@@ -63,9 +63,8 @@
              book.delete({id:books.id}).$promise.then(function () {
                  //当我们删除后再进行书的查询
                  $scope.books = book.query();
-             })
+             });
         };
-
     });
 </script>
 <script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div ng-controller="firstCtrl">
+    <!--name1:<input type="text" ng-model="name1">
+    name2:<input type="text" ng-model="name2">
+    &lt;!&ndash;这里传递的是字符串&ndash;&gt;
+    <pannel title="{{name1}}">这是内容1</pannel>
+    <pannel title="{{name2}}">这是内容2</pannel>-->
+
+    name3:<input type="text" ng-model="name3">
+    name4:<input type="text" ng-model="name4">
+    <!--此时传递的是变量-->
+    <pannel title="name3" >这是内容1</pannel>
+    <pannel title="name4" nn="say(t)">这是内容2</pannel>
+</div>
+<!--
+    用@取值默认是字符串类型，每当修改外面就会传入一个新的字符串
+    如果改指令里面定义的内容，改的是自己家的无法印象外面的
+-->
+<script src="angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('firstCtrl',function ($scope) {
+        $scope.name1 = '这是第一个标题';
+        $scope.name2 = '这是第二个标题';
+        $scope.name3 = '这是第三个标题';
+        $scope.name4 = '这是第四个标题';
+        $scope.say = function (title) {
+            alert(title)
+        }
+    });
+    app.directive('pannel',function () {
+        return {
+            templateUrl:'pannel.html',
+            transclude:true,
+            scope:{
+                title:'=',//@符号取到的就是字符串
+                         //改用 = 号传递 传递的是变量
+                //因为传递的是同一个变量，所有外面修改会影响里面的内容，里面更改会影响外面的内容
+                say:'&nn'
+                //传递方法，在控制器上定义的方法在指令中使用 用&符号
+            },
+            //传递的方式一共有三种 = & @
+        }
+    });
+    //在指令标签上写好要传递的方法和方法名  say="say(t)"; 对应的就是控制的方法
+    //在当前指令上绑定say方法 say:"&"
+    //在指令上调用say方法 ng-click = "say({t:"传递的值"})";
+
+
+    //写一个对用户的增删改查 用http + ajax
+</script>
+</body>
+</html>
