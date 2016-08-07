@@ -44,28 +44,49 @@
     //依赖ngReesource
     var app = angular.module('appModule',['ngResource']);
     //angular中服务，服务可以共享数据
-    //创建服务
-    app.factory('book',function ($resource) {
-        return $resource('/books/:id',{
-            id:'@id'
-        },{
-            update:{ //因为angular默认不支持修改方法，所有我们要手动增加
-                method:'PUT'
-            }
-        })
-    });
-    app.controller('bookCtrl',function ($scope,book) {
-        //查询所有书
-        $scope.books = book.query(); //向后台发送请求 get 请求 获取所有书
-        $scope.remove = function (books) {
-            //通过id删除书
-            //当我们删除一项后要在去查一下
-             book.delete({id:books.id}).$promise.then(function () {
-                 //当我们删除后再进行书的查询
-                 $scope.books = book.query();
-             })
-        };
+    app.controller('bookCtrl',function ($scope,$http) {
+        //$http angular中的ajax
+        //$http.get()  $http.post() $http.jsonp()
+        //通过$http向后台发送请求
+        $http.get('/books').success(function (data) {
+            //默认的data为对象类型
+            $scope.books = data;
+            var flag = true;
+            $scope.books.forEach(function (item) {
+                //只要有一个未选中
+                if(!item.select) flag=false;
+            })
+            $scope.checkAll = flag;
+        });
 
+        $scope.check = function () {
+            //先获取自己的值 $scope.checkAll
+            $scope.books.forEach(function (item) {
+                //遍历每一项 让每一项的select的值等于 $scope.checkAll
+                item.select = $scope.checkAll;
+            });
+        }
+        //如果下面有一个按钮点击，我就要遍历所有按钮进行筛查，看全选是否需要选中
+        $scope.selectOne = function () {
+            var flag = true;
+            $scope.books.forEach(function (item) {
+                //只要有一个未选中
+                if(!item.select) flag=false;
+            });
+            $scope.checkAll = flag;
+        }
+        $scope.remove = function (book) {
+            $scope.books =  $scope.books.filter(function (item) {
+                return book!=item;
+            });
+        };
+        $scope.total = function () {
+            var sum  = 0;
+            $scope.books.forEach(function (item) {
+                sum+= item.price*item.count;
+            });
+            return sum;
+        }
     });
 </script>
 <script>
