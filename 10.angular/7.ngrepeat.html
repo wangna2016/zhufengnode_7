@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="firstCtrl">
+<!--遍历对象 要拿到的是值-->
+<!--<div ng-repeat="(key,value) in arr">
+    {{key}}
+</div>-->
+<!--<div ng-repeat="(keys,value) in arrs">-->
+    <!--&lt;!&ndash;{{key}}:{{value.name}} {{$index}}&ndash;&gt;-->
+    <!--<div ng-repeat="(key,value) in value.type">-->
+        <!--{{keys}}{{$index}}{{value}}-->
+        <!--&lt;!&ndash;嵌套循环并且获取父级索引&ndash;&gt;-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--<div ng-repeat="value in arrs" ng-init="keys=$index">
+    &lt;!&ndash;{{key}}:{{value.name}} {{$index}}&ndash;&gt;
+    <div ng-repeat="value in value.type">
+        {{keys}}{{$index}}{{value}}
+    </div>
+</div>-->
+<div ng-repeat="a in arr2 track by $index" >
+    {{a}}
+</div>
+<!--ngrepeat 每循环一次会创建一个独立的作用域-->
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+        $scope.arr = {name:'zfpx',age:8,address:'回龙观'}
+        //ng-repeat遍历对象或数组
+        $scope.arrs = [
+             {name:'zfpx',type:['白色','蓝色']},
+             {name:'zfpx2',type:['红色','灰色','蓝色']},
+             {name:'zfpx3',type:['白色']}
+       ]
+        $scope.arr2 = [
+                "苹果",
+                "苹果",
+                "苹果",
+                "苹果",
+        ];
+        //遍历数组时 需要根据不同的值进行遍历,通过track by index
+    });
+</script>
+</body>
+</html>
