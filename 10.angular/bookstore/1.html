@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div ng-controller="bookCtrl">
+    <table class="table-bordered table">
+        <tr>
+            <td>全选 <input type="checkbox" ng-model="checkAll" ng-click="check()"></td>
+            <td>商品</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>小计</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="book in books">
+            <td><input type="checkbox" ng-model="book.select" ng-click="selectOne()"></td>
+            <td>{{book.name}}</td>
+            <td>{{book.price}}</td>
+            <td>
+                <!--ng-disabled为true时当前按钮不可点-->
+                <button ng-click="book.count=book.count-1" ng-disabled="book.count<=1">-</button>
+                <input type="text" ng-model="book.count">
+                <button ng-click="book.count=book.count+1">+</button>
+            </td>
+            <td>{{book.count*book.price}}</td>
+            <td><button class="btn btn-danger"  ng-click="remove(book)">删除</button></td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <button >删除选中商品</button>
+                选择了 件商品
+                总价 {{total()}}
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="angular.js"></script>
+<script src="angular-resource.js"></script>
+<script>
+    //依赖ngReesource
+    var app = angular.module('appModule',['ngResource']);
+    //angular中服务，服务可以共享数据
+    //创建服务
+    app.factory('book',function ($resource) {
+        return $resource('/books/:id',{
+            id:'@id'
+        },{
+            update:{ //因为angular默认不支持修改方法，所有我们要手动增加
+                method:'PUT'
+            }
+        });
+    });
+    app.controller('bookCtrl',function ($scope,book) {
+        //查询所有书
+        $scope.books = book.query(); //向后台发送请求 get 请求 获取所有书
+        $scope.remove = function (books) {
+            //通过id删除书
+            //当我们删除一项后要在去查一下
+             book.delete({id:books.id}).$promise.then(function () {
+                 //当我们删除后再进行书的查询
+                 $scope.books = book.query();
+             });
+        };
+    });
+</script>
+<script>
+    //restful风格
+</script>
+</body>
+</html>

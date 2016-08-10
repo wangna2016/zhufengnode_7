@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="firstCtrl">
+<!--货币过滤器-->
+    {{123.23 | currency:'￥'}} <br>
+<!--数字过滤器 后面保留小数几位-->
+    {{10000000.1000 | number:'2'}} <br>
+<!--日期过滤器-->
+    {{1231233211233 | date:'yyyy年MM月dd日 hh小时mm分钟ss'}}<br>
+<!--json格式化数据-->
+    <pre>{{[{"name":1},{"name":1},{"name":1}]|json}}</pre>
+<!--转化大写-->
+    {{'abcde' | uppercase}} <br>
+<!--转化小写-->
+    {{'ASDFASD' | lowercase}} <br>
+<!--限制位数-->
+    {{10000|limitTo:2}}
+
+<!--排序-->
+    <!--<button ng-click="val=!val"></button>
+&lt;!&ndash;一般按照数字进行排序&ndash;&gt;
+    <div ng-repeat="a in arr | orderBy:a:val">
+        {{a}}
+    </div>-->
+<!--filter过滤器 如果不是对象格式全部过滤，指定属性可以在属性中过滤-->
+<!--<input type="text" ng-model="query" ng-model-options="{debounce:2000}"> 延迟查询-->
+<input type="text" ng-model="query" ng-model-options="{updateOn:'blur'}">
+    <div ng-repeat="a in arr | filter:{name:query}">
+        {{a}}
+    </div>
+
+
+{{data}}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function ($scope,uppercaseFilter,currencyFilter) {
+        $scope.val = true;
+        $scope.arr = [
+            {name:'zfpx',age:1},
+            {name:'hello',age:'zfpx'},
+            {name:'zfpx',age:3},
+            {name:'world',age:3},
+        ];
+        //在控制器中使用过滤器 ,在原有的过滤器后面加Filter后缀注入到我们的控制器中
+        var data = 'hello world';
+        $scope.data = uppercaseFilter(data);
+        $scope.data = currencyFilter(100,'￡');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .display{
+           display:block
+        }
+        .none{
+           display:none
+        }
+    </style>
+</head>
+<body ng-controller="firstCtrl">
+<!--在angular中绑定事件都通过ng的形式-->
+<!--<div ng-click="flag=!flag">{{flag?'显示':'隐藏'}}</div>
+<div ng-if="flag">
+    content
+</div>-->
+<div ng-if="flag">
+    <div ng-repeat="a in arr track by $index">{{a}}</div>
+</div>
+
+<script src="angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+        var num = 0;
+        $scope.flag = false;
+        /*$scope.a = function () {
+           alert(num++); //获取到函数的返回结果
+        }*/
+        $scope.arr = ["苹果","苹果"]
+    });
+    //显示隐藏  //jquery里的hide方法
+    //angular中提供了三个  ng-show ng-hide ng-if
+    //ng-show/ng-hide只是单纯的显示和隐藏
+    //ng-if 如果不满组条件时会删除dom
+
+    //在频繁切换时使用show/hide  初始消耗比较大，不管条件是否满足，都要执行内部指令
+    //if 确定的数据不会改变  切换时消耗较大，初始化时消耗小，如果不满足内部指令不执行 if 和我们ng-repeat连用
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .background{
+            background: blue;
+        }
+        .background1{
+            background: yellow;
+        }
+        .color{
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body >
+<div ng-controller="firstCtrl">
+    <!--<div class="{{class1}}">angular baby</div>-->
+    <div ng-class="class1">react MM</div>
+    <!--根据条件增加样式-->
+    <div ng-class="{true:'background',false:'background1'}[isActive]">vue </div>
+    <!--angular中最常用的绑定样式方法-->
+    <div ng-class="{'background':isActive,'background1':!isActive,'color':true}">vue</div>
+</div>
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+        $scope.isActive = false
+        $scope.class1 = 'background';
+
+    });
+</script>
+</body>
+</html>

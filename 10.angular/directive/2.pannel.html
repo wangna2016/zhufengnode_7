@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div ng-controller="firstCtrl">
+<!---->
+<pannel title="标题">这是内容1</pannel>
+<pannel title="标题1">这是内容2</pannel>
+<pannel title="标题2">这是内容3</pannel>
+</div>
+<script src="angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //指令的用途封装 ，操作dom， 装饰型指令 组件型指令
+    app.controller('firstCtrl',function ($scope) {
+        $scope.name = 10000;
+    });
+    //指令和控制器的交互  指令和指令间的交互
+    //指令不产生作用域可以直接访问控制器上的数据
+    //1.需要保存原指令中存放的内容 通过transclude为true，将我们的内容保存在带有ng-transclude的标签上
+    //指令是用来封装的，尽量不要公用控制器上的作用域
+    app.directive('pannel',function () {
+        return {
+            //template:'<div>template{{name}} <span ng-transclude></span></div>',
+            //使用templateUrl 来引用html片段
+            templateUrl:'pannel.html',
+            restrict:'ECMA',
+            replace:true,
+            transclude:true,
+            //link函数是用来将scope和我们的数据进行绑定
+            link:function (scope,element,attrs) {
+                //scope代表当前作用域
+                //element代表当前元素
+                //attrs 当前的指令上的所有属性
+                scope.title = attrs["title"]; //获取到attrs上的title值
+            },
+            scope:{},
+            //创建私有作用域,将属性挂载在自己作用域上
+            //如果scope值为true 表示创建独立作用域，并且和上级作用域保持关系
+            //scope={} 此时完全断绝关系
+        }
+    })
+</script>
+</body>
+</html>

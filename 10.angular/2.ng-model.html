@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="firstCtrl">
+<!--为了实现双向数据绑定，肯定要将数据写回，必须可编辑-->
+<input type="text" ng-model="name">
+{{name}}
+<!--可以进行表达式的运算-->
+{{2+5*3}}
+<!--还可以进行三元表达式-->
+{{name?name:'zfpx'}}
+<script src="angular.js"></script>
+<script>
+    //当我们引入angularjs后，会提供一个angular的对象
+    console.log(angular);
+    //angular中一切从模块开始,我们要创建模块
+    //1.模块的名字 2.模块的依赖没有默认写[],3.配置config
+   var app = angular.module('appModule',[]);
+    //写上[]表示声明一个模块。如果不写表示获取一个模块
+    //通过模块来创建控制器，通过当前定义的模块的返回值
+    //1.param1 控制器的名字,控制器的方法
+    //当我们创建一个控制器后会买一送一 送你一个$scope,会帮你注入到控制器中
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+        //当前的$scope就是我们的viewModel,也就是说挂载scope的值可以双向绑定
+        $scope.name = 100;
+        //我们创建控制器后要指定控制器的作用范围
+    });
+
+
+
+
+    //如果写好ng-model 他会先查找作用域，如果没有，会声明一个变量，将数据展现在视图层上
+    //ng-model的变量变化数据会发生变化，视图发生变化
+</script>
+</body>
+</html>

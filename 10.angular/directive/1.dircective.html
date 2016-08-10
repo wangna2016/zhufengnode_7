@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<my-dire></my-dire>
+<div my-dire></div>
+<div class="my-dire"></div>
+<!-- directive:my-dire  -->
+<script src="angular.js"></script>
+<script>
+    //指令是不依赖于控制器的，一切从模块开始
+    var app = angular.module('appModule',[]);
+    //我们可以通过angular.directive创建指令
+    //1.指令的名字
+    //指令名字是-的转换成大写 border-radius margin-top
+    app.directive('myDire',function () {
+        //默认返回对象
+        return {
+            //当前指令所需的模板
+            //默认的渲染形式 ECMA  e element c class m comment a attribute
+            template:'<div>template</div>',
+            //通过restrict限制指令的使用范围 默认是EA
+            restrict:'ECMA',
+            replace:true,//替换掉外层标签 ，默认使用EA
+        }
+    })
+</script>
+</body>
+</html>

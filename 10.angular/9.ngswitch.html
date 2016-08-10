@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div ng-controller="firstCtrl">
+    <input type="text" ng-model="name">
+    <div ng-switch="name"> <!--变量-->
+        <div ng-switch-when="hello">hello</div> <!--里面放的是字符串-->
+        <div ng-switch-when="world">world</div>
+        <div ng-switch-default>nothing</div>
+    </div>
+</div>
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+        //switch case
+    });
+</script>
+</body>
+</html>

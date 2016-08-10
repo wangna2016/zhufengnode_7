@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<form method="get" id="myform">
+    用户名 <input type="text" name="username"> <br>
+    密码 <input type="text" name="password"> <br>
+    <input type="button" value="提交" id="btn">
+</form>
+<ul id="userList">
+
+</ul>
+<!--name=123&password=456-->
+<script>
+    //序列化表单 serializable
+    function serializable(myform) {
+        //myform代表当前的表单
+        var arr = [];
+        var arrs = Array.prototype.slice.call(myform.elements,0);
+        arrs.forEach(function (item) {
+            if(item.type=='text'){
+                arr.push(item.name+"="+item.value);
+            }
+        })
+        return arr.join('&');
+    }
+    btn.onclick = function () {
+        //str代表序列化后的数据name=123&password=456
+        //发送给后台
+        var xhr = new XMLHttpRequest();
+        xhr.open('post','/reg',true);
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+            var str ='';
+
+            xhr.response.forEach(function (item) {
+                str += '<li>';
+                str+=item.username;
+                str+='</li>';
+            })
+            userList.innerHTML = str;
+        }
+        xhr.send(serializable(myform))
+    }
+</script>
+<script src="./reg.js"></script>
+</body>
+</html>

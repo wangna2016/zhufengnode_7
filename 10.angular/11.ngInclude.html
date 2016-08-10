@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div ng-controller="firstCtrl">
+    <div ng-include="'list.html'"></div>
+</div>
+<script src="angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    angular.module('appModule').controller('firstCtrl',function ($scope) {
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div ng-controller="firstCtrl">
+<pannel title="标题">这是内容1</pannel>
+<pannel title="标题1">这是内容2</pannel>
+</div>
+<script src="angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('firstCtrl',function ($scope) {
+        $scope.name = 10000;
+    });
+    app.directive('pannel',function () {
+        return {
+            templateUrl:'pannel.html',
+            restrict:'E',
+            replace:true,
+            transclude:true,
+            //直接引用标签上的属性，作为当前作用域上的值
+            scope:{
+                title:'@' //引用的是字符串(引用变量)
+                //scope.title1  = '标题'
+                //当前作用域下声明一个title属性,并且引用当前指令上的title属性
+                //在当前标签上如果声明的也叫title 引用的名字也叫title可以进行简写
+            },
+        }
+    })
+</script>
+</body>
+</html>
